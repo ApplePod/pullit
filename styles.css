@@ -321,7 +321,8 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
   margin-bottom: 12px; letter-spacing: -0.03em;
 }
 .rit-num { color: var(--pull-mint); font-size: 1.2em; }
-.ritual-desc { color: rgba(255,255,255,.45); margin-bottom: 48px; }
+.ritual-desc { color: rgba(255,255,255,.45); margin-bottom: 48px; line-height: 1.75; }
+.ritual-desc strong { color: #fff; }
 
 .ritual-orbit {
   position: relative; width: min(520px, 90vw); height: min(520px, 90vw);
@@ -364,6 +365,7 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
   padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px;
 }
 .rit-status.done { background: rgba(0,229,168,.15); color: var(--pull-mint); }
+.rit-status.ai { background: rgba(91,91,240,.18); color: #b8b8ff; }
 .rit-status.live { background: var(--weak-red); color: #fff; animation: blink .8s infinite; }
 .rit-status.wait { background: rgba(255,255,255,.08); color: rgba(255,255,255,.4); }
 .rit-card h3 { font-size: 1rem; margin-bottom: 4px; }

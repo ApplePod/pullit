@@ -359,11 +359,13 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
   ritualTL
     .to('#ritualProgress', { width: '66%', duration: 1 })
     .to(ritualCards[0], { scale: 1, opacity: 0.6, duration: 0.5 })
-    .to(ritualCards[1], { scale: 1.15, z: 100, rotateY: 0, duration: 1 }, '-=0.5');
+    .to(ritualCards[1], { scale: 1.15, z: 100, rotateY: 0, duration: 1 }, '-=0.5')
+    .to('#ritualLabel', { textContent: 'AI 추천 2 / 3', duration: 0.01 }, '-=1');
   ritualTL
     .to('#ritualProgress', { width: '100%', duration: 1 })
     .to(ritualCards[1], { scale: 1, opacity: 0.6, duration: 0.5 })
     .to(ritualCards[2], { scale: 1.15, z: 100, rotateY: 10, duration: 1 }, '-=0.5')
+    .to('#ritualLabel', { textContent: 'AI 추천 3 / 3 — 약점 분석 완료', duration: 0.01 }, '-=1')
     .to('.orbit-core', { scale: 1.1, duration: 0.5 });
 
   gsap.timeline({
