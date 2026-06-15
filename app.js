@@ -1,4 +1,6 @@
 /* ─── LOADER ─── */
+import { CURRICULUM, ELECTIVES, getAllUnits } from './units.js';
+
 (function initLoader() {
   const loader = document.getElementById('loader');
   const bar = document.getElementById('loaderBar');
@@ -116,7 +118,7 @@ function startHero() {
   gsap.from('.impact-badge', { opacity: 0, y: 30, duration: 0.8 });
   gsap.from('.impact-3 .layer', { opacity: 0, z: -200, stagger: 0.1, duration: 1.2, ease: 'power4.out' });
   gsap.from('.hl-row', { opacity: 0, y: 60, rotateX: 40, stagger: 0.15, duration: 1, ease: 'power3.out', delay: 0.3 });
-  gsap.from('.impact-sub, .impact-actions, .impact-live', { opacity: 0, y: 30, stagger: 0.1, duration: 0.8, delay: 0.7 });
+  gsap.from('.impact-sub, .impact-subjects, .impact-actions, .impact-live', { opacity: 0, y: 30, stagger: 0.1, duration: 0.8, delay: 0.7 });
   gsap.from('.scroll-cue', { opacity: 0, duration: 1, delay: 1.2 });
 
   gsap.to('.l-front', {
@@ -124,47 +126,178 @@ function startHero() {
   });
 }
 
-/* ─── GALAXY NODES ─── */
-const CONCEPTS = [
-  '다항식', '방정식', '도형', '함수', '수열', '지수', '로그', '삼각', '벡터',
-  '확률', '통계', '미분', '적분', '극한', '행렬', '복소', '집합', '명제',
-  '도형방정식', '이차함수', '지수함수', '로그함수', '수열극한', '미분법', '적분법', '확률분포', '통계추정',
-];
-const STATES = ['g','g','y','r','r','y','g','g','y','r','y','g','g','y','r','g','y','g','r','r','y','g','g','y','g','r','y'];
+/* ─── GALAXY / CURRICULUM MAP ─── */
+const RING = { math1: 27, math2: 37, elective: 47 };
+const STATE_LABEL = { r: '약함', y: '보통', g: '마스터' };
+
+let currentElective = 'prob';
+let nodes = [];
+let revealedCount = 0;
 
 const galaxyNodes = document.getElementById('galaxyNodes');
-const nodes = [];
-if (galaxyNodes) {
-  CONCEPTS.forEach((name, i) => {
-    const angle = (i / 27) * Math.PI * 2 - Math.PI / 2;
-    const radius = 38 + (i % 3) * 4;
-    const x = 50 + Math.cos(angle) * radius;
-    const y = 50 + Math.sin(angle) * radius;
-    const node = document.createElement('div');
-    node.className = `g-node ${STATES[i]} hidden`;
-    node.style.left = x + '%';
-    node.style.top = y + '%';
-    node.title = name;
-    galaxyNodes.appendChild(node);
-    nodes.push({ el: node, state: STATES[i], name });
+
+function placeOnRing(count, index, radiusPct) {
+  const angle = (index / count) * Math.PI * 2 - Math.PI / 2;
+  return {
+    x: 50 + Math.cos(angle) * radiusPct,
+    y: 50 + Math.sin(angle) * radiusPct,
+  };
+}
+
+function createMapNode(unit, pos) {
+  const el = document.createElement('button');
+  el.type = 'button';
+  el.className = `g-node ${unit.state} hidden`;
+  el.style.left = pos.x + '%';
+  el.style.top = pos.y + '%';
+  el.dataset.id = unit.id;
+  el.dataset.track = unit.track;
+  el.innerHTML = `<span class="g-dot"></span><span class="g-label">${unit.name}</span>`;
+  el.addEventListener('mouseenter', () => highlightUnit(unit.id));
+  el.addEventListener('focus', () => highlightUnit(unit.id));
+  el.addEventListener('mouseleave', () => clearHighlight());
+  el.addEventListener('blur', () => clearHighlight());
+  el.addEventListener('click', () => showUnitAlert(unit));
+  return el;
+}
+
+function buildMapNodes() {
+  if (!galaxyNodes) return;
+  galaxyNodes.innerHTML = '';
+  nodes = [];
+
+  const all = getAllUnits(currentElective);
+  const groups = [
+    { key: 'math1', items: all.filter(u => u.track === 'math1'), r: RING.math1 },
+    { key: 'math2', items: all.filter(u => u.track === 'math2'), r: RING.math2 },
+    { key: 'elective', items: all.filter(u => u.track === 'elective'), r: RING.elective },
+  ];
+
+  groups.forEach(({ items, r }) => {
+    items.forEach((unit, i) => {
+      const pos = placeOnRing(items.length, i, r);
+      const el = createMapNode(unit, pos);
+      galaxyNodes.appendChild(el);
+      nodes.push({ el, ...unit, state: unit.state });
+    });
   });
+
+  applyReveal(revealedCount);
+  updateHud();
+  syncListHighlights();
+}
+
+function renderUnitList(containerId, units) {
+  const list = document.getElementById(containerId);
+  if (!list) return;
+  list.innerHTML = '';
+  units.forEach((unit) => {
+    const li = document.createElement('li');
+    li.className = `unit-item ${unit.state}`;
+    li.dataset.id = unit.id;
+    li.innerHTML = `
+      <span class="ui-dot"></span>
+      <span class="ui-name">${unit.name}</span>
+      <span class="ui-state">${STATE_LABEL[unit.state]}</span>
+    `;
+    li.addEventListener('mouseenter', () => highlightUnit(unit.id));
+    li.addEventListener('mouseleave', () => clearHighlight());
+    li.addEventListener('click', () => showUnitAlert({ ...unit, trackLabel: containerId === 'listElective' ? ELECTIVES[currentElective].label : containerId === 'listMath1' ? '수학Ⅰ' : '수학Ⅱ' }));
+    list.appendChild(li);
+  });
+}
+
+function renderSidebar() {
+  renderUnitList('listMath1', CURRICULUM.math1.units);
+  renderUnitList('listMath2', CURRICULUM.math2.units);
+  renderUnitList('listElective', ELECTIVES[currentElective].units);
+  const zoneLabel = document.getElementById('electiveZoneLabel');
+  if (zoneLabel) zoneLabel.textContent = ELECTIVES[currentElective].label;
+  const zone = document.getElementById('electiveZone');
+  if (zone) zone.style.setProperty('--el-color', ELECTIVES[currentElective].color || '#FF6B7A');
+}
+
+function applyReveal(count) {
+  revealedCount = count;
+  nodes.forEach((n, i) => {
+    n.el.classList.toggle('hidden', i >= count);
+  });
+  document.querySelectorAll('.unit-item').forEach((li, i) => {
+    li.classList.toggle('hidden-item', i >= count);
+  });
+  updateHud();
 }
 
 function updateHud() {
   const visible = nodes.filter(n => !n.el.classList.contains('hidden'));
-  const r = visible.filter(n => n.el.classList.contains('r')).length;
-  const y = visible.filter(n => n.el.classList.contains('y')).length;
-  const g = visible.filter(n => n.el.classList.contains('g')).length;
-  const hudR = document.getElementById('hudRed');
-  const hudY = document.getElementById('hudYellow');
-  const hudG = document.getElementById('hudGreen');
-  if (hudR) hudR.textContent = r;
-  if (hudY) hudY.textContent = y;
-  if (hudG) hudG.textContent = g;
+  const r = visible.filter(n => n.state === 'r').length;
+  const y = visible.filter(n => n.state === 'y').length;
+  const g = visible.filter(n => n.state === 'g').length;
+  document.getElementById('hudRed').textContent = r;
+  document.getElementById('hudYellow').textContent = y;
+  document.getElementById('hudGreen').textContent = g;
+  const total = document.getElementById('hudTotal');
+  if (total) total.textContent = visible.length;
+}
+
+function highlightUnit(id) {
+  document.querySelectorAll('.g-node, .unit-item').forEach(el => {
+    el.classList.toggle('highlight', el.dataset.id === id);
+  });
+}
+
+function clearHighlight() {
+  document.querySelectorAll('.g-node.highlight, .unit-item.highlight').forEach(el => {
+    el.classList.remove('highlight');
+  });
+}
+
+function syncListHighlights() {
+  /* lists already wired */
+}
+
+function showUnitAlert(unit) {
+  const alert = document.getElementById('galaxyAlert');
+  const concept = document.getElementById('alertConcept');
+  const hint = document.getElementById('alertHint');
+  const track = unit.trackLabel || (unit.track === 'math1' ? '수학Ⅰ' : unit.track === 'math2' ? '수학Ⅱ' : ELECTIVES[currentElective].label);
+  if (concept) concept.textContent = `${track} › ${unit.name}`;
+  if (hint) {
+    hint.textContent = unit.state === 'r'
+      ? '내일 3문제 중 1개로 추천됩니다'
+      : unit.state === 'y'
+        ? '복습 주기에 포함됩니다'
+        : '1등급 궤도 유지 중';
+  }
+  alert?.classList.add('show');
+}
+
+function switchElective(key) {
+  currentElective = key;
+  document.querySelectorAll('.el-tab').forEach(t => t.classList.toggle('active', t.dataset.el === key));
+  buildMapNodes();
+  renderSidebar();
+  if (typeof gsap !== 'undefined') {
+    gsap.from('#listElective .unit-item:not(.hidden-item)', { opacity: 0, x: 12, stagger: 0.04, duration: 0.4 });
+    gsap.from('.g-node:not(.hidden)', { scale: 0, stagger: 0.03, duration: 0.35, ease: 'back.out(2)' });
+  }
+}
+
+document.querySelectorAll('.el-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchElective(tab.dataset.el));
+});
+
+buildMapNodes();
+renderSidebar();
+
+/* first weak unit for default alert */
+const defaultWeak = getAllUnits('prob').find(u => u.state === 'r');
+if (defaultWeak) {
+  setTimeout(() => showUnitAlert({ ...defaultWeak, trackLabel: defaultWeak.track === 'math2' ? '수학Ⅱ' : '수학Ⅰ' }), 500);
 }
 
 /* ─── TUNNEL TEXT ─── */
-const tunnelWords = ['1등급', '27', '수학', '영어', '3', '우주', '단원', '매일', '별', 'Pullit', '성장', '10분'];
+const tunnelWords = ['수학Ⅰ', '수학Ⅱ', '확통', '미적', '기하', '27단원', '1등급', '3문제', '매일', '분석', 'Pullit'];
 ['tunnel1', 'tunnel2'].forEach((id) => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -241,16 +374,11 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       scrub: 1,
       pin: '.galaxy-pin',
       onUpdate: (self) => {
-        const revealCount = Math.floor(self.progress * 27);
-        nodes.forEach((n, i) => {
-          if (i < revealCount) n.el.classList.remove('hidden');
-        });
-        updateHud();
-        if (self.progress > 0.7) {
-          document.getElementById('galaxyAlert')?.classList.add('show');
+        const revealCount = Math.min(27, Math.floor(self.progress * 27) + 1);
+        applyReveal(revealCount);
+        if (self.progress > 0.65) {
           const weak = nodes.find(n => n.state === 'r' && !n.el.classList.contains('hidden'));
-          const alertEl = document.getElementById('alertConcept');
-          if (weak && alertEl) alertEl.textContent = weak.name;
+          if (weak) showUnitAlert(weak);
         }
       },
     },
@@ -310,19 +438,19 @@ setInterval(() => {
 
 const quizData = {
   math: {
-    meta: '이차함수 · Lv.2',
-    q: 'x² − 5x + 6 = 0 의 두 근의 합은?',
+    meta: '수학Ⅱ · 도함수 활용',
+    q: '함수 f(x) = x³ − 3x + 1 이 극대를 갖는 x 값은?',
     options: [
-      { text: '3', correct: false },
-      { text: '5', correct: true },
-      { text: '6', correct: false },
-      { text: '−5', correct: false },
+      { text: '−1', correct: false },
+      { text: '0', correct: false },
+      { text: '1', correct: true },
+      { text: '2', correct: false },
     ],
-    explain: '근과 계수의 관계 → 두 근의 합 = 5',
-    weak: '이차함수 › 판별식',
+    explain: "f'(x) = 3x² − 3 = 0 → x = ±1, 극대는 x = 1",
+    weak: '수학Ⅱ › 도함수 활용',
   },
   eng: {
-    meta: '독해 · Lv.2',
+    meta: '영어 · 빈칸 추론',
     q: '"abundant"와 가장 가까운 뜻은?',
     options: [
       { text: 'scarce', correct: false },
@@ -331,7 +459,7 @@ const quizData = {
       { text: 'silent', correct: false },
     ],
     explain: 'abundant = plentiful (풍부한)',
-    weak: '어휘 › 동의어',
+    weak: '영어 › 어휘',
   },
 };
 
@@ -363,7 +491,7 @@ function renderQuiz(subject) {
       } else {
         btn.classList.add('wrong');
         [...opts.children].forEach((b, i) => { if (data.options[i].correct) b.classList.add('correct'); });
-        result.textContent = `약한 별 발견 → ${data.weak}`;
+        result.textContent = `약점 단원 기록 → ${data.weak}`;
         result.style.color = '#FF6B7A';
         burst?.classList.add('active');
         if (typeof gsap !== 'undefined') {

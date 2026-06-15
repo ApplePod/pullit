@@ -72,8 +72,8 @@
       </h1>
 
       <p class="impact-sub">
-        우주에 떠 있는 <strong>27개 단원</strong>.<br>
-        수학·영어 <strong>하루 3문제</strong>만 풀어도, 약한 별이 하나씩 밝아진다.
+        수학Ⅰ·수학Ⅱ·선택과목, <strong>27개 단원</strong>이 우주에 떠 있다.<br>
+        수학·영어 <strong>하루 3문제</strong>만 풀어도 약한 단원이 바로 보인다.
       </p>
 
       <div class="impact-subjects">
@@ -100,8 +100,8 @@
 
     <div class="impact-ticker">
       <div class="ticker-track" id="tickerTrack">
-        <span>수학</span><span>·</span><span>영어</span><span>·</span><span>매일 3문제</span><span>·</span>
-        <span>27단원 우주</span><span>·</span><span>1등급 루트</span><span>·</span><span>10분 컷</span><span>·</span>
+        <span>수학Ⅰ</span><span>·</span><span>수학Ⅱ</span><span>·</span><span>선택과목</span><span>·</span>
+        <span>27단원 분석</span><span>·</span><span>1등급 루트</span><span>·</span><span>매일 3문제</span><span>·</span>
         <span>풀면 1등급 가능</span><span>·</span><span>Pullit</span><span>·</span>
       </div>
     </div>
@@ -125,8 +125,8 @@
           <article class="rit-card c1" data-step="1">
             <div class="rit-card-face">
               <span class="rit-status done">수학 ✓</span>
-              <h3>판별식</h3>
-              <p>이차함수 · Lv.2</p>
+              <h3>삼각함수</h3>
+              <p>수학Ⅰ · 지수·로그·삼각</p>
               <div class="rit-bar"><span style="width:100%"></span></div>
             </div>
           </article>
@@ -141,8 +141,8 @@
           <article class="rit-card c3" data-step="3">
             <div class="rit-card-face">
               <span class="rit-status wait">수학</span>
-              <h3>꼭짓점 복습</h3>
-              <p>이차함수 · 약점 케어</p>
+              <h3>도함수 활용</h3>
+              <p>수학Ⅱ · 약점 복습</p>
               <div class="rit-bar"><span style="width:0%"></span></div>
             </div>
           </article>
@@ -162,32 +162,87 @@
       <div class="galaxy-stage">
         <p class="act-label">ACT 02 — THE UNIVERSE</p>
         <h2 class="galaxy-title">27단원 <span class="shimmer">우주</span></h2>
-        <p class="galaxy-desc">각 단원은 하나의 별. 풀수록 밝아지고, 약한 별은 빨갛게 빛난다.</p>
+        <p class="galaxy-desc">수학Ⅰ · 수학Ⅱ · 선택과목 — 풀 때마다 단원별 약점이 실시간 분석된다.</p>
 
-        <div class="galaxy-arena">
-          <div class="galaxy-ring r1"></div>
-          <div class="galaxy-ring r2"></div>
-          <div class="galaxy-ring r3"></div>
-          <div class="galaxy-core">
-            <img src="brand/logo-mark.svg" width="48" height="48" alt="">
-            <span>YOU</span>
+        <div class="galaxy-layout">
+          <div class="galaxy-map-panel">
+            <div class="galaxy-arena" id="galaxyArena">
+              <div class="orbit-zone zone-m1"><span class="zone-tag">수학Ⅰ</span></div>
+              <div class="orbit-zone zone-m2"><span class="zone-tag">수학Ⅱ</span></div>
+              <div class="orbit-zone zone-el" id="electiveZone"><span class="zone-tag" id="electiveZoneLabel">확률과 통계</span></div>
+              <div class="galaxy-ring r1"></div>
+              <div class="galaxy-ring r2"></div>
+              <div class="galaxy-ring r3"></div>
+              <div class="galaxy-core">
+                <img src="brand/logo-mark.svg" width="44" height="44" alt="">
+                <span>분석중</span>
+              </div>
+              <div class="galaxy-nodes" id="galaxyNodes"></div>
+            </div>
+
+            <div class="galaxy-hud">
+              <div class="hud-item red"><span id="hudRed">0</span> 약함</div>
+              <div class="hud-item yellow"><span id="hudYellow">0</span> 보통</div>
+              <div class="hud-item green"><span id="hudGreen">0</span> 마스터</div>
+              <div class="hud-item total"><span id="hudTotal">0</span>/27 단원</div>
+            </div>
           </div>
-          <div class="galaxy-nodes" id="galaxyNodes"></div>
-          <div class="galaxy-beam" id="galaxyBeam"></div>
-        </div>
 
-        <div class="galaxy-hud">
-          <div class="hud-item red"><span id="hudRed">0</span> 약한 별</div>
-          <div class="hud-item yellow"><span id="hudYellow">0</span> 성장 중</div>
-          <div class="hud-item green"><span id="hudGreen">0</span> 1등급 궤도</div>
-        </div>
+          <aside class="galaxy-side">
+            <div class="curriculum-card">
+              <div class="curr-head">
+                <h3>단원 분석</h3>
+                <span class="curr-badge">실시간</span>
+              </div>
 
-        <div class="galaxy-alert" id="galaxyAlert">
-          <span class="alert-ping"></span>
-          <div>
-            <strong>오늘의 약점 별</strong>
-            <span id="alertConcept">이차함수 › 판별식</span>
-          </div>
+              <div class="curr-tracks">
+                <div class="track-block tb-m1">
+                  <div class="track-head">
+                    <span class="track-dot"></span>
+                    <div>
+                      <strong>수학Ⅰ</strong>
+                      <small>공통 11문항 · 9단원</small>
+                    </div>
+                  </div>
+                  <ul class="track-units" id="listMath1"></ul>
+                </div>
+                <div class="track-block tb-m2">
+                  <div class="track-head">
+                    <span class="track-dot"></span>
+                    <div>
+                      <strong>수학Ⅱ</strong>
+                      <small>공통 11문항 · 10단원</small>
+                    </div>
+                  </div>
+                  <ul class="track-units" id="listMath2"></ul>
+                </div>
+                <div class="track-block tb-el">
+                  <div class="track-head">
+                    <span class="track-dot"></span>
+                    <div>
+                      <strong>선택과목</strong>
+                      <small>택 1 · 8문항 · 8단원</small>
+                    </div>
+                  </div>
+                  <div class="elective-tabs" id="electiveTabs">
+                    <button class="el-tab active" data-el="prob">확률과 통계</button>
+                    <button class="el-tab" data-el="calc">미적분</button>
+                    <button class="el-tab" data-el="geo">기하</button>
+                  </div>
+                  <ul class="track-units" id="listElective"></ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="galaxy-alert" id="galaxyAlert">
+              <span class="alert-ping"></span>
+              <div>
+                <strong id="alertTitle">오늘의 약점 단원</strong>
+                <span id="alertConcept">수학Ⅱ › 도함수 활용</span>
+                <small id="alertHint">내일 3문제 중 1개로 추천</small>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -231,9 +286,9 @@
   <section class="act act-voices">
     <h2 class="voices-title" data-reveal>1등급 루트, 이미 시작됐어</h2>
     <div class="voices-track" id="voicesTrack">
-      <blockquote class="voice-card hot">"수학 영어 매일 3개만 푸는데 루틴 잡힘"</blockquote>
-      <blockquote class="voice-card">"27단원 우주 보는 재미가 있음"</blockquote>
-      <blockquote class="voice-card hot">"약한 별만 콕 집어서 복습해줌"</blockquote>
+      <blockquote class="voice-card hot">"수학Ⅰ·Ⅱ 단원별로 약점이 딱 보임"</blockquote>
+      <blockquote class="voice-card">"선택과목 바꿔도 단원 분석 그대로"</blockquote>
+      <blockquote class="voice-card hot">"도함수 활용 약한 거 바로 잡아줌"</blockquote>
       <blockquote class="voice-card">"10분이면 끝나서 매일 할 수 있음"</blockquote>
       <blockquote class="voice-card hot">"풀면 풀수록 1등급 감이 옴"</blockquote>
       <blockquote class="voice-card">"우주에 단원 떠 있는 거 신기함"</blockquote>
@@ -252,7 +307,7 @@
           <button class="pulse-tab active magnetic" data-subject="math">수학</button>
           <button class="pulse-tab magnetic" data-subject="eng">영어</button>
         </div>
-        <p class="pulse-meta" id="quizMeta">이차함수 · Lv.2</p>
+        <p class="pulse-meta" id="quizMeta">수학Ⅱ · 도함수 활용</p>
         <p class="pulse-q" id="quizQ"></p>
         <div class="pulse-options" id="quizOptions"></div>
         <div class="pulse-result-wrap">
@@ -283,7 +338,7 @@
         <span class="vs-tag">PULLIT 루트</span>
         <ul>
           <li><strong>수학·영어</strong> 매일 3문제</li>
-          <li><strong>27단원 우주</strong>에서 약점 확인</li>
+          <li><strong>수학Ⅰ·Ⅱ·선택</strong> 27단원 분석</li>
           <li><strong>약한 별만</strong> 내일 추천</li>
           <li><strong>풀면</strong> 1등급 가능</li>
         </ul>
@@ -321,6 +376,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script type="module" src="scene3d.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
