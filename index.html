@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>풀잇 Pullit — 3문제 풀면 약점 끝</title>
-  <meta name="description" content="하루 3문제만. 풀면 풀수록 내 약한 단원이 보임. 27개 중단원 실시간 분석. 수능 전 예상 등급까지.">
-  <meta property="og:title" content="3문제 풀면 약점 분석 끝 | Pullit 풀잇">
-  <meta property="og:description" content="기출 1000제 말고 그냥 3개. 풀면 약점이 보이는 앱.">
+  <meta name="description" content="하루 3문제만. 풀면 풀수록 내 약한 단원이 보임.">
+  <meta property="og:title" content="3문제 풀면 약점 분석 끝 | Pullit">
   <meta property="og:image" content="brand/og-image.svg">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
@@ -15,28 +14,18 @@
 </head>
 <body>
   <div class="grain"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-  <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee">
-      <span>3문제만 풀어도 약점 분석 끝</span>
-      <span>·</span>
-      <span>27단원 실시간 지도</span>
-      <span>·</span>
-      <span>10분 컷</span>
-      <span>·</span>
-      <span>기출 1000제 NO</span>
-      <span>·</span>
-      <span>그냥 3개 ㄱㄱ</span>
-      <span>·</span>
-      <span>3문제만 풀어도 약점 분석 끝</span>
-      <span>·</span>
-      <span>27단원 실시간 지도</span>
-      <span>·</span>
-      <span>10분 컷</span>
-      <span>·</span>
-      <span>기출 1000제 NO</span>
-      <span>·</span>
+      <span>3문제만 풀어도 약점 분석 끝</span><span>·</span>
+      <span>27단원 실시간 3D 지도</span><span>·</span>
+      <span>10분 컷</span><span>·</span>
+      <span>그냥 3개 ㄱㄱ</span><span>·</span>
+      <span>3문제만 풀어도 약점 분석 끝</span><span>·</span>
+      <span>27단원 실시간 3D 지도</span><span>·</span>
+      <span>10분 컷</span><span>·</span>
       <span>그냥 3개 ㄱㄱ</span>
     </div>
   </div>
@@ -50,216 +39,176 @@
       <nav class="nav-links">
         <a href="#flow">어떻게?</a>
         <a href="#demo">체험</a>
-        <a href="#download" class="nav-cta">사전등록</a>
+        <a href="#download" class="nav-cta magnetic">사전등록</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="메뉴"><span></span><span></span></button>
     </div>
   </header>
 
-  <!-- HERO: 한눈에 3 → 약점 -->
   <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="container hero-inner">
-      <div class="viral-badge pulse">🔥 2026 최애 수학앱 예정</div>
+    <div class="hero-content">
+      <div class="viral-badge reveal" data-reveal>🔥 2026 최애 수학앱 예정</div>
 
-      <div class="hero-big3" aria-hidden="true">
-        <span class="big-num">3</span>
-        <span class="big-label">문제</span>
+      <div class="hero-3d-text reveal" data-reveal>
+        <div class="num-3d-wrap">
+          <span class="num-3d" data-depth="0.4">3</span>
+          <span class="num-shadow">3</span>
+        </div>
+        <span class="num-side">문제</span>
       </div>
 
-      <h1 class="hero-headline">
+      <h1 class="hero-headline reveal" data-reveal>
         <span class="line1">풀면</span>
-        <span class="line2 gradient">약점이 보임</span>
+        <span class="line2 shimmer">약점이 보임</span>
       </h1>
 
-      <p class="hero-sub">
+      <p class="hero-sub reveal" data-reveal>
         레벨테스트 없음. 모의고사 없음.<br>
-        <strong>그냥 3문제 풀면</strong> 27단원 중 어디가 약한지 AI가 알려줌.
+        <strong>3문제 풀면</strong> 27단원 약점이 3D 지도에 뜸.
       </p>
 
-      <div class="hero-cta">
-        <a href="#download" class="btn btn-hot">무료 사전등록 →</a>
-        <a href="#demo" class="btn btn-outline">1문제 맛보기</a>
+      <div class="hero-cta reveal" data-reveal>
+        <a href="#download" class="btn btn-hot magnetic btn-glow">무료 사전등록 →</a>
+        <a href="#demo" class="btn btn-glass magnetic">1문제 맛보기</a>
       </div>
 
-      <div class="live-stats">
-        <div class="live-pill"><span class="dot"></span> 지금 <strong id="liveCount">2,847</strong>명이 오늘 3문제 풀는 중</div>
+      <div class="live-pill reveal" data-reveal>
+        <span class="dot"></span> 지금 <strong id="liveCount">2,847</strong>명 풀는 중
       </div>
     </div>
 
-    <!-- PHONE: 약점 지도가 핵심 -->
-    <div class="hero-visual">
-      <div class="phone">
-        <div class="phone-inner">
-          <div class="phone-top">
-            <img src="brand/logo-mark.svg" width="24" height="24" alt="">
-            <span>오늘의 <em>3</em>문제</span>
-            <span class="streak">🔥7</span>
-          </div>
+    <div class="hero-stage" id="phoneStage">
+      <div class="orbit-ring ring1"></div>
+      <div class="orbit-ring ring2"></div>
+      <div class="orbit-ring ring3"></div>
 
-          <div class="solve-stack">
-            <div class="solve-item done"><span class="dot-r"></span> 판별식 <small>완료</small></div>
-            <div class="solve-item active"><span class="dot-y"></span> 조건부확률 <small>풀는 중</small></div>
-            <div class="solve-item"><span class="dot-g"></span> 꼭짓점 <small>대기</small></div>
-          </div>
+      <div class="phone-3d" id="phone3d">
+        <div class="phone-face">
+          <div class="phone-glass">
+            <div class="phone-top">
+              <img src="brand/logo-mark.svg" width="22" height="22" alt="">
+              <span>오늘의 <em>3</em>문제</span>
+              <span class="streak">🔥7</span>
+            </div>
 
-          <div class="map-label">내 약점 지도 <span class="tag-live">LIVE</span></div>
-          <div class="weak-map" id="weakMap">
-            <!-- JS fills 27 cells -->
-          </div>
-          <div class="weak-callout">
-            <span class="weak-emoji">📍</span>
-            <div>
-              <strong>지금 제일 약함</strong>
-              <span>이차함수 › 판별식</span>
+            <div class="cards-3d">
+              <div class="card-3d c1"><span class="dot-r"></span>판별식 <small>완료</small></div>
+              <div class="card-3d c2 active"><span class="dot-y"></span>조건부확률 <small>풀는중</small></div>
+              <div class="card-3d c3"><span class="dot-g"></span>꼭짓점 <small>대기</small></div>
+            </div>
+
+            <div class="map-3d-wrap">
+              <div class="map-label">약점 3D 지도 <span class="tag-live">LIVE</span></div>
+              <div class="map-3d" id="weakMap3d"></div>
+            </div>
+
+            <div class="weak-ping">
+              <div class="ping-ring"></div>
+              <div>
+                <strong>지금 제일 약함</strong>
+                <span>이차함수 › 판별식</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="float-card fc1">ㄹㅇ 10분 컷</div>
-      <div class="float-card fc2">약점 자동 분석</div>
-      <div class="float-card fc3">기출 NO</div>
+      <div class="float-3d f1">ㄹㅇ 10분 컷</div>
+      <div class="float-3d f2">AI 약점 분석</div>
+      <div class="float-3d f3">기출 NO</div>
     </div>
   </section>
 
-  <!-- ONE GLANCE FLOW -->
   <section class="flow" id="flow">
     <div class="container">
-      <h2 class="flow-title">이거면 끝.<br><span class="gradient">3문제 = 약점 분석</span></h2>
-
-      <div class="flow-steps">
-        <div class="flow-step">
-          <div class="flow-icon">3</div>
-          <h3>오늘 3문제만</h3>
-          <p>부담 제로.<br>그냥 풀어.</p>
+      <h2 class="section-hero reveal" data-reveal>3문제 = <span class="shimmer">약점 분석</span></h2>
+      <div class="pipeline-3d">
+        <div class="pipe-node reveal" data-reveal>
+          <div class="pipe-sphere s1"><span>3</span></div>
+          <h3>오늘 3문제</h3>
+          <p>10분 컷</p>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-icon ai">AI</div>
-          <h3>풀 때마다 분석</h3>
-          <p>정오답·개념·난이도<br>전부 기록.</p>
+        <div class="pipe-line reveal" data-reveal></div>
+        <div class="pipe-node reveal" data-reveal>
+          <div class="pipe-sphere s2"><span>AI</span></div>
+          <h3>실시간 분석</h3>
+          <p>개념·난이도</p>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step highlight">
-          <div class="flow-icon map">🗺</div>
-          <h3>약점 지도 갱신</h3>
-          <p>27단원 중<br><strong>빨간 데만</strong> 내일 또 줌.</p>
-        </div>
-      </div>
-
-      <div class="flow-banner">
-        <p>시험 안 봐도 됨. <strong>매일 3문제가 곧 진단.</strong></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF / VIRAL -->
-  <section class="viral">
-    <div class="container">
-      <div class="viral-grid">
-        <div class="viral-card">
-          <span class="vc-num">3</span>
-          <span class="vc-unit">문제/일</span>
-          <p>하루 끝</p>
-        </div>
-        <div class="viral-card">
-          <span class="vc-num">27</span>
-          <span class="vc-unit">단원</span>
-          <p>실시간 지도</p>
-        </div>
-        <div class="viral-card">
-          <span class="vc-num">~10</span>
-          <span class="vc-unit">분</span>
-          <p>학습 시간</p>
-        </div>
-        <div class="viral-card accent">
-          <span class="vc-num">0</span>
-          <span class="vc-unit">번</span>
-          <p>레벨테스트</p>
+        <div class="pipe-line reveal" data-reveal></div>
+        <div class="pipe-node reveal" data-reveal>
+          <div class="pipe-sphere s3"><span>🗺</span></div>
+          <h3>약점 지도</h3>
+          <p>빨간 데만 내일</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MZ REVIEWS -->
+  <section class="stats-row">
+    <div class="container stats-3d">
+      <div class="stat-cube reveal" data-reveal><span class="sc-num" data-count="3">0</span><span>문제/일</span></div>
+      <div class="stat-cube reveal" data-reveal><span class="sc-num" data-count="27">0</span><span>단원 지도</span></div>
+      <div class="stat-cube reveal" data-reveal><span class="sc-num" data-count="10">0</span><span>분 학습</span></div>
+      <div class="stat-cube accent reveal" data-reveal><span class="sc-num">0</span><span>레벨테스트</span></div>
+    </div>
+  </section>
+
   <section class="reviews">
     <div class="container">
-      <h2 class="section-title">말 많은 앱 될 예정</h2>
-      <div class="review-scroll">
-        <div class="review-bubble">"기출 1000제는 안 함. 3개는 함 ㅋㅋ"</div>
-        <div class="review-bubble hot">"아 나 판별식 약한 거 바로 뜸 ㄹㅇ"</div>
-        <div class="review-bubble">"10분이면 끝나서 매일 켬"</div>
-        <div class="review-bubble">"등급 안 보여줘서 덜 무서움"</div>
-        <div class="review-bubble hot">"수능 때만 등급 뜬다고? 개꿀"</div>
+      <h2 class="section-hero reveal" data-reveal>말 많을 예정</h2>
+      <div class="review-track">
+        <div class="review-3d">"기출 1000제 NO. 3개는 함 ㅋ"</div>
+        <div class="review-3d hot">"판별식 약한 거 바로 뜸 ㄹㅇ"</div>
+        <div class="review-3d">"10분이면 끝"</div>
+        <div class="review-3d hot">"수능 때만 등급? 개꿀"</div>
       </div>
     </div>
   </section>
 
-  <!-- DEMO -->
   <section class="demo" id="demo">
-    <div class="container demo-wrap">
-      <div class="demo-head">
-        <span class="tag">TRY</span>
-        <h2>1문제 풀어봐.<br>약점 기록되는 거 봐.</h2>
-      </div>
-      <div class="demo-box">
+    <div class="container">
+      <h2 class="section-hero reveal" data-reveal>1문제 풀어봐</h2>
+      <div class="demo-3d reveal" data-reveal>
         <div class="demo-tabs">
           <button class="demo-tab active" data-subject="math">수학</button>
           <button class="demo-tab" data-subject="eng">영어</button>
         </div>
-        <p class="quiz-meta">이차함수 · 난이도 2</p>
-        <p class="quiz-q" id="quizQ">x² − 5x + 6 = 0 의 두 근의 합은?</p>
+        <p class="quiz-meta" id="quizMeta">이차함수 · Lv.2</p>
+        <p class="quiz-q" id="quizQ"></p>
         <div class="quiz-options" id="quizOptions"></div>
         <p class="quiz-result" id="quizResult"></p>
       </div>
     </div>
   </section>
 
-  <!-- VS -->
   <section class="vs">
-    <div class="container">
-      <h2 class="section-title">왜 Pullit?</h2>
-      <div class="vs-grid">
-        <div class="vs-card them">
-          <span class="vs-label">다른 앱</span>
-          <p>기출 1000제<br>무한 회독<br>레벨테스트<br>등급 스트레스</p>
-        </div>
-        <div class="vs-card us">
-          <span class="vs-label">Pullit</span>
-          <p><strong>하루 3문제</strong><br><strong>약점 지도</strong><br><strong>10분 컷</strong><br><strong>수능 때만 등급</strong></p>
-        </div>
-      </div>
+    <div class="container vs-arena reveal" data-reveal>
+      <div class="vs-3d them"><span>다른 앱</span><p>기출 1000제<br>무한 회독<br>등급 스트레스</p></div>
+      <div class="vs-vs">VS</div>
+      <div class="vs-3d us"><span>Pullit</span><p><strong>하루 3문제</strong><br><strong>3D 약점 지도</strong><br><strong>10분 컷</strong></p></div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="download" id="download">
-    <div class="container download-wrap">
-      <img src="brand/logo-mark.svg" width="72" height="72" alt="Pullit" class="dl-logo">
-      <h2>3문제만.<br><span class="gradient">약점은 우리가 본다.</span></h2>
-      <p class="dl-sub">2026 하반기 출시 · 사전등록하면 얼리버드</p>
-      <div class="dl-btns">
-        <a href="#" class="btn btn-hot btn-lg">사전등록 하기 →</a>
-      </div>
-      <p class="dl-fine">App Store · Google Play 곧 오픈</p>
+    <div class="dl-3d-scene reveal" data-reveal>
+      <div class="dl-orbit"></div>
+      <img src="brand/logo-mark.svg" width="88" height="88" alt="Pullit" class="dl-logo-3d">
+      <h2>3문제만.<br><span class="shimmer">약점은 우리가 본다.</span></h2>
+      <p>2026 하반기 · 사전등록 얼리버드</p>
+      <a href="#" class="btn btn-hot btn-lg magnetic btn-glow">사전등록 →</a>
     </div>
   </section>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <div class="footer-left">
-        <strong>Pull<span class="mint">it</span></strong> 풀잇
-        <p>주식회사 뉴런소프트 · Pass AI</p>
-      </div>
-      <div class="footer-right">
-        <a href="brand.html">브랜드</a>
-        <a href="mailto:koreasomoon@naver.com">B2G 문의</a>
-      </div>
+      <div><strong>Pull<span class="mint">it</span></strong> · 뉴런소프트</div>
+      <div><a href="brand.html">브랜드</a> · <a href="mailto:koreasomoon@naver.com">B2G</a></div>
     </div>
-    <p class="copy">© 2026 Neuronsoft</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script type="module" src="scene3d.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
