@@ -118,8 +118,8 @@ function startHero() {
   gsap.from('.impact-badge', { opacity: 0, y: 30, duration: 0.8 });
   gsap.from('.impact-3 .layer', { opacity: 0, z: -200, stagger: 0.1, duration: 1.2, ease: 'power4.out' });
   gsap.from('.hl-row', { opacity: 0, y: 60, rotateX: 40, stagger: 0.15, duration: 1, ease: 'power3.out', delay: 0.3 });
-  gsap.from('.impact-sub, .impact-subjects, .impact-actions, .impact-live', { opacity: 0, y: 30, stagger: 0.1, duration: 0.8, delay: 0.7 });
-  gsap.from('.scroll-cue', { opacity: 0, duration: 1, delay: 1.2 });
+  gsap.from('.impact-sub, .impact-subjects, .impact-actions', { opacity: 0, y: 30, stagger: 0.1, duration: 0.8, delay: 0.7 });
+  gsap.from('.impact-footer > *', { opacity: 0, y: 20, stagger: 0.12, duration: 0.7, delay: 0.95 });
 
   gsap.to('.l-front', {
     rotateY: 8, rotateX: -5, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1,

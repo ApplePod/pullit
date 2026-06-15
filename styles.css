@@ -165,8 +165,8 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 /* ─── ACT I: IMPACT ─── */
 .act-impact {
   min-height: 100vh; min-height: 100dvh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 100px 24px 120px; text-align: center; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 96px 24px 52px; text-align: center; overflow: hidden;
 }
 .impact-bg { position: absolute; inset: 0; pointer-events: none; }
 .impact-orb {
@@ -182,7 +182,12 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
   66% { transform: translate(-20px, 30px) scale(.95); }
 }
 
-.impact-content { position: relative; max-width: 900px; }
+.impact-content {
+  position: relative; max-width: 900px; width: 100%;
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding-bottom: 12px;
+}
 .impact-badge {
   display: inline-block; padding: 8px 18px; margin-bottom: 32px;
   border-radius: 999px; font-size: .72rem; font-weight: 700;
@@ -254,28 +259,38 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 .subject-pill.eng { border-color: rgba(0,229,168,.4); color: var(--pull-mint); }
 .subject-pill.daily { border-color: rgba(255,255,255,.2); color: #fff; }
 
-.impact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.impact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
+
+.impact-footer {
+  position: relative; z-index: 5;
+  width: 100%; max-width: 900px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  padding: 20px 0 12px; flex-shrink: 0;
+}
+
 .impact-live {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: .82rem; color: rgba(255,255,255,.45);
   padding: 10px 20px; border-radius: 999px;
   background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+  max-width: 100%;
+  text-align: center;
 }
 .pulse-dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--pull-mint);
   box-shadow: 0 0 12px var(--pull-mint);
-  animation: blink 1.2s infinite;
+  animation: blink 1.2s infinite; flex-shrink: 0;
 }
 @keyframes blink { 50% { opacity: .2; } }
 .impact-live strong { color: var(--pull-mint); font-size: 1rem; }
 
 .scroll-cue {
-  position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  font-size: .65rem; font-weight: 800; letter-spacing: .2em; color: rgba(255,255,255,.25);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: .62rem; font-weight: 800; letter-spacing: .2em;
+  color: rgba(255,255,255,.22);
 }
 .scroll-line {
-  width: 1px; height: 48px;
+  width: 1px; height: 36px;
   background: linear-gradient(to bottom, var(--pull-mint), transparent);
   animation: scrollPulse 2s ease-in-out infinite;
 }
@@ -285,10 +300,10 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 }
 
 .impact-ticker {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 14px 0; overflow: hidden;
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 6;
+  padding: 12px 0; overflow: hidden;
   border-top: 1px solid rgba(255,255,255,.06);
-  background: rgba(0,0,0,.4);
+  background: rgba(0,0,0,.55);
 }
 .ticker-track {
   display: flex; gap: 2rem; white-space: nowrap;
@@ -844,6 +859,9 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
   .cursor-ring, .cursor-dot { display: none; }
 }
 @media (max-width: 640px) {
+  .act-impact { padding-top: 84px; padding-bottom: 46px; }
+  .impact-footer { gap: 12px; padding-top: 14px; }
+  .impact-live { font-size: .74rem; padding: 8px 14px; }
   .nav-links {
     display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0;
     flex-direction: column; background: rgba(8,8,16,.95);
@@ -853,4 +871,8 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
   .nav-toggle { display: block; }
   .pulse-options { grid-template-columns: 1fr; }
   .galaxy-hud { flex-wrap: wrap; gap: 16px; }
+}
+@media (max-height: 720px) {
+  .scroll-cue { display: none; }
+  .impact-footer { padding-top: 10px; gap: 0; }
 }
