@@ -1,4 +1,4 @@
-import { CURRICULUM, ELECTIVES, getAllUnits } from '../units.js';
+import { CURRICULUM, ELECTIVES, getAllUnits } from '/units.js';
 
 const STORAGE_KEY = 'pullit-demo-v1';
 const SCORE = { r: 35, y: 55, g: 80 };
@@ -312,21 +312,30 @@ function nextDay() {
 async function init() {
   if (new URLSearchParams(location.search).has('reset')) {
     localStorage.removeItem(STORAGE_KEY);
-    location.href = location.pathname;
+    location.href = '/demo/';
     return;
   }
 
-  const res = await fetch('./data/questions.json');
-  questions = await res.json();
-  state = loadState();
-  ensureToday();
-  renderHome();
+  try {
+    const res = await fetch('/demo/data/questions.json');
+    if (!res.ok) throw new Error('questions load failed');
+    questions = await res.json();
+    state = loadState();
+    ensureToday();
+    renderHome();
 
-  document.querySelectorAll('[data-go]').forEach((el) => {
-    el.addEventListener('click', () => showView(el.dataset.go));
-  });
-  $('#btnBack')?.addEventListener('click', () => showView('home'));
-  $('#btnNextDay')?.addEventListener('click', nextDay);
+    document.querySelectorAll('[data-go]').forEach((el) => {
+      el.addEventListener('click', () => showView(el.dataset.go));
+    });
+    $('#btnBack')?.addEventListener('click', () => showView('home'));
+    $('#btnNextDay')?.addEventListener('click', nextDay);
+  } catch (err) {
+    console.error(err);
+    const list = $('#dailyList');
+    if (list) {
+      list.innerHTML = '<p style="color:#ff6b7a;padding:20px;text-align:center">데이터를 불러오지 못했습니다.<br><a href="/demo/?reset=1" style="color:#00e5a8">새로고침</a></p>';
+    }
+  }
 }
 
 init();
