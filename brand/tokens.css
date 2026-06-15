@@ -1,0 +1,41 @@
+/* Pullit Brand Design Tokens v1.0 */
+:root {
+  /* Brand */
+  --pull-indigo: #5b5bf0;
+  --pull-violet: #8b5cf6;
+  --pull-mint: #00e5a8;
+  --pull-mint-dim: #22d3a6;
+
+  /* Weakness map */
+  --weak-red: #ff6b7a;
+  --mid-yellow: #ffc857;
+  --strong-green: #3dd68c;
+
+  /* Surface */
+  --bg-deep: #0b0d12;
+  --bg-elevated: #12151c;
+  --bg-card: #1a1f2b;
+  --border: rgba(255, 255, 255, 0.06);
+
+  /* Text */
+  --text-primary: #f4f6fb;
+  --text-muted: #9aa3b5;
+  --text-dim: #5c6478;
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--pull-indigo) 0%, var(--pull-violet) 100%);
+  --gradient-hero-text: linear-gradient(135deg, #7da0ff, #b794ff, var(--pull-mint));
+  --gradient-glow: radial-gradient(ellipse 60% 50% at 70% 20%, rgba(91, 91, 240, 0.25), transparent);
+
+  /* Layout */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --shadow-brand: 0 12px 30px rgba(91, 91, 240, 0.35);
+  --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --max-width: 1120px;
+
+  /* Typography */
+  --font: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630">
+      <stop stop-color="#0B0D12"/>
+      <stop offset="1" stop-color="#1A1530"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="700" y1="100" x2="1100" y2="500">
+      <stop stop-color="#5B5BF0" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="120" y1="120" x2="320" y2="320">
+      <stop stop-color="#5B5BF0"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="900" cy="300" rx="400" ry="300" fill="url(#glow)"/>
+  <rect x="120" y="165" width="180" height="180" rx="48" fill="url(#mark)"/>
+  <rect x="158" y="210" width="62" height="18" rx="9" fill="#FF6B7A"/>
+  <rect x="158" y="242" width="84" height="18" rx="9" fill="#FFC857"/>
+  <rect x="158" y="274" width="96" height="18" rx="9" fill="#00E5A8"/>
+  <path d="M248 255h36M264 237l24 18-24 18" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="360" y="260" font-family="Pretendard, -apple-system, sans-serif" font-size="96" font-weight="800" fill="#F4F6FB">Pullit</text>
+  <text x="360" y="340" font-family="Pretendard, -apple-system, sans-serif" font-size="42" font-weight="600" fill="#9AA3B5">€‡  ä| 38, }\ Y·´Ì</text>
+  <text x="360" y="400" font-family="Pretendard, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#00E5A8">Pull your weak spots. Three a day.</text>
+</svg>

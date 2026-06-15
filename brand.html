@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pullit Brand — 브랜드 가이드</title>
+  <link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="brand/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .brand-page { padding-top: 100px; }
+    .brand-hero { text-align: center; padding: 60px 0 80px; }
+    .brand-hero h1 { font-size: 2.5rem; margin: 16px 0; }
+    .brand-section { padding: 64px 0; border-top: 1px solid var(--border); }
+    .brand-section h2 { font-size: 1.5rem; margin-bottom: 32px; }
+    .logo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .logo-box {
+      border-radius: var(--radius-md); padding: 40px 32px; text-align: center;
+      border: 1px solid var(--border);
+    }
+    .logo-box.dark { background: var(--bg-deep); }
+    .logo-box.light { background: #fff; }
+    .logo-box img { max-width: 100%; height: auto; margin-bottom: 16px; }
+    .logo-box p { font-size: .85rem; color: var(--text-muted); }
+    .logo-box.light p { color: #666; }
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .swatch { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
+    .swatch-color { height: 80px; }
+    .swatch-info { padding: 12px; background: var(--bg-card); font-size: .8rem; }
+    .swatch-info strong { display: block; margin-bottom: 4px; }
+    .type-sample h1.sample { font-size: 3rem; font-weight: 800; margin-bottom: 8px; }
+    .type-sample .gradient { background: var(--gradient-hero-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .do-dont .ok { border-color: rgba(61,214,140,.3); }
+    .do-dont .no { border-color: rgba(255,107,122,.3); }
+    .do-dont li { margin: 8px 0; color: var(--text-muted); }
+    @media (max-width: 640px) { .do-dont { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <img src="brand/logo-mark.svg" alt="" class="logo-img" width="36" height="36">
+        <span class="logo-wordmark">Pull<span class="logo-it">it</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">웹사이트</a>
+        <a href="#logo">로고</a>
+        <a href="#color">컬러</a>
+        <a href="#voice">보이스</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="brand-page">
+    <section class="brand-hero container">
+      <p class="section-tag">BRAND IDENTITY v1.0</p>
+      <img src="brand/logo-mark.svg" alt="Pullit" width="120" height="120" style="margin: 0 auto 24px; display:block;">
+      <h1>Pullit <span style="color:var(--text-muted);font-weight:600">풀잇</span></h1>
+      <p style="color:var(--pull-mint);font-weight:600;font-size:1.1rem;">Pull your weak spots. Three a day.</p>
+      <p style="color:var(--text-muted);margin-top:8px;">매일 3문제, 약한 수학·영어만</p>
+    </section>
+
+    <section class="brand-section container" id="logo">
+      <h2>로고 시스템</h2>
+      <p style="color:var(--text-muted);margin-bottom:32px;">3개 막대(하루 3문제·약점 지도) + 당기는 화살표(Pull it)</p>
+      <div class="logo-grid">
+        <div class="logo-box dark">
+          <img src="brand/logo-mark.svg" alt="마크" width="120" height="120">
+          <p><strong>App Mark</strong><br>앱 아이콘 · 파비콘 · SNS</p>
+        </div>
+        <div class="logo-box dark">
+          <img src="brand/logo-full.svg" alt="영문" width="280" height="70">
+          <p><strong>Wordmark EN</strong><br>Pull + it (mint)</p>
+        </div>
+        <div class="logo-box dark">
+          <img src="brand/logo-full-ko.svg" alt="한영" width="320" height="70">
+          <p><strong>Wordmark KO</strong><br>웹 · 제안서 · 인쇄</p>
+        </div>
+        <div class="logo-box light">
+          <img src="brand/logo-full-ko.svg" alt="한영 라이트" width="320" height="70" style="filter:invert(1) hue-rotate(180deg);">
+          <p><strong>Light BG</strong><br>인쇄·밝은 배경용</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-section container" id="color">
+      <h2>컬러</h2>
+      <div class="color-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#5B5BF0"></div><div class="swatch-info"><strong>Pull Indigo</strong>#5B5BF0</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#8B5CF6"></div><div class="swatch-info"><strong>Pull Violet</strong>#8B5CF6</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#00E5A8"></div><div class="swatch-info"><strong>Pull Mint</strong>#00E5A8</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FF6B7A"></div><div class="swatch-info"><strong>Weak Red</strong>#FF6B7A</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FFC857"></div><div class="swatch-info"><strong>Mid Yellow</strong>#FFC857</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#3DD68C"></div><div class="swatch-info"><strong>Strong Green</strong>#3DD68C</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0B0D12"></div><div class="swatch-info"><strong>BG Deep</strong>#0B0D12</div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F4F6FB"></div><div class="swatch-info"><strong>Text Primary</strong>#F4F6FB</div></div>
+      </div>
+    </section>
+
+    <section class="brand-section container">
+      <h2>타이포그래피</h2>
+      <div class="type-sample" style="background:var(--bg-card);padding:40px;border-radius:var(--radius-md);border:1px solid var(--border);">
+        <h1 class="sample">매일 3문제</h1>
+        <h1 class="sample gradient">약한 수학·영어만</h1>
+        <p style="font-size:1.1rem;margin-top:24px;color:var(--text-muted);">Pretendard — 본문 400~600, 헤드라인 700~800</p>
+        <p style="margin-top:16px;font-weight:700;">Pull<span style="color:var(--pull-mint)">it</span> — Let's go →</p>
+      </div>
+    </section>
+
+    <section class="brand-section container" id="voice">
+      <h2>보이스 &amp; Do / Don't</h2>
+      <div class="do-dont">
+        <div class="logo-box dark ok" style="text-align:left">
+          <strong style="color:var(--strong-green)">✓ Do</strong>
+          <ul>
+            <li>오늘 3문제만</li>
+            <li>약한 단원·개념</li>
+            <li>10분이면 끝</li>
+            <li>검증된 AI 문항</li>
+            <li>수능 시즌 등급</li>
+          </ul>
+        </div>
+        <div class="logo-box dark no" style="text-align:left">
+          <strong style="color:var(--weak-red)">✗ Don't</strong>
+          <ul>
+            <li>1등급 보장</li>
+            <li>기출 무제한 회독</li>
+            <li>매일 등급 노출</li>
+            <li>AI가 다 만든다</li>
+            <li>무거운 모의고사</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand-section container">
+      <h2>다운로드</h2>
+      <div class="hero-actions">
+        <a href="brand/logo-mark.svg" download class="btn btn-ghost">logo-mark.svg</a>
+        <a href="brand/logo-full-ko.svg" download class="btn btn-ghost">logo-full-ko.svg</a>
+        <a href="brand/favicon.svg" download class="btn btn-ghost">favicon.svg</a>
+        <a href="brand/og-image.svg" download class="btn btn-ghost">og-image.svg</a>
+        <a href="brand/BRAND_GUIDE.md" download class="btn btn-primary">BRAND_GUIDE.md</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="copyright">© 2026 Neuronsoft Inc. · Pullit Brand Guide v1.0</p>
+  </footer>
+</body>
+</html>
