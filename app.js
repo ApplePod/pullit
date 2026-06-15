@@ -184,6 +184,7 @@ function buildMapNodes() {
 
   applyReveal(revealedCount);
   updateHud();
+  renderWeaknessFeed();
   syncListHighlights();
 }
 
@@ -226,6 +227,7 @@ function applyReveal(count) {
     li.classList.toggle('hidden-item', i >= count);
   });
   updateHud();
+  renderWeaknessFeed(count > 3);
 }
 
 function updateHud() {
@@ -256,20 +258,107 @@ function syncListHighlights() {
   /* lists already wired */
 }
 
-function showUnitAlert(unit) {
-  const alert = document.getElementById('galaxyAlert');
-  const concept = document.getElementById('alertConcept');
-  const hint = document.getElementById('alertHint');
-  const track = unit.trackLabel || (unit.track === 'math1' ? '수학Ⅰ' : unit.track === 'math2' ? '수학Ⅱ' : ELECTIVES[currentElective].label);
-  if (concept) concept.textContent = `${track} › ${unit.name}`;
-  if (hint) {
-    hint.textContent = unit.state === 'r'
-      ? '내일 3문제 중 1개로 추천됩니다'
-      : unit.state === 'y'
-        ? '복습 주기에 포함됩니다'
-        : '1등급 궤도 유지 중';
+function getTrackLabel(unit) {
+  return unit.trackLabel || (unit.track === 'math1' ? '수학Ⅰ' : unit.track === 'math2' ? '수학Ⅱ' : ELECTIVES[currentElective].label);
+}
+
+function getVisibleNodes() {
+  return nodes.filter(n => !n.el.classList.contains('hidden'));
+}
+
+function renderWeaknessFeed(animate = false) {
+  const panel = document.getElementById('weaknessPanel');
+  const list = document.getElementById('weakList');
+  const countEl = document.getElementById('weakCount');
+  const growChips = document.getElementById('growChips');
+  const tomorrowChips = document.getElementById('tomorrowChips');
+  if (!list || !panel) return;
+
+  const visible = getVisibleNodes();
+  const weakRed = visible.filter(n => n.state === 'r');
+  const weakYellow = visible.filter(n => n.state === 'y');
+
+  if (countEl) countEl.textContent = weakRed.length;
+  panel.classList.toggle('show', visible.length > 3);
+
+  list.innerHTML = '';
+  weakRed.forEach((unit, i) => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'weak-item r';
+    item.dataset.id = unit.id;
+    item.style.animationDelay = animate ? `${i * 0.08}s` : '0s';
+    item.innerHTML = `
+      <span class="weak-ping"></span>
+      <div class="weak-body">
+        <span class="weak-track">${getTrackLabel(unit)}</span>
+        <span class="weak-name">${unit.name}</span>
+        <span class="weak-hint">내일 AI 추천 ${i + 1}순위</span>
+      </div>
+      <span class="weak-priority">${i + 1}</span>
+    `;
+    item.addEventListener('click', () => focusWeakUnit(unit.id));
+    list.appendChild(item);
+  });
+
+  weakYellow.slice(0, 4).forEach((unit, i) => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'weak-item yellow-item';
+    item.dataset.id = unit.id;
+    item.style.animationDelay = animate ? `${(weakRed.length + i) * 0.06}s` : '0s';
+    item.innerHTML = `
+      <span class="weak-ping"></span>
+      <div class="weak-body">
+        <span class="weak-track">${getTrackLabel(unit)}</span>
+        <span class="weak-name">${unit.name}</span>
+        <span class="weak-hint">복습 주기 포함</span>
+      </div>
+    `;
+    item.addEventListener('click', () => focusWeakUnit(unit.id));
+    list.appendChild(item);
+  });
+
+  if (growChips) {
+    growChips.innerHTML = '';
+    weakYellow.slice(0, 5).forEach((unit, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'weak-chip y';
+      chip.style.animationDelay = `${i * 0.05}s`;
+      chip.textContent = unit.name;
+      growChips.appendChild(chip);
+    });
+    document.getElementById('weakGrow').style.display = weakYellow.length ? 'block' : 'none';
   }
-  alert?.classList.add('show');
+
+  if (tomorrowChips) {
+    tomorrowChips.innerHTML = '';
+    const picks = [...weakRed.slice(0, 2), ...weakYellow.slice(0, 1)].slice(0, 3);
+    if (!picks.length && weakRed.length) picks.push(weakRed[0]);
+    picks.forEach((unit, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'weak-chip';
+      chip.style.animationDelay = `${i * 0.08}s`;
+      chip.textContent = `${getTrackLabel(unit)} · ${unit.name}`;
+      tomorrowChips.appendChild(chip);
+    });
+  }
+}
+
+function focusWeakUnit(id) {
+  highlightUnit(id);
+  const node = nodes.find(n => n.id === id);
+  if (node) {
+    node.el.classList.add('pulse');
+    setTimeout(() => node.el.classList.remove('pulse'), 600);
+  }
+  document.querySelectorAll('.weak-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+}
+
+function showUnitAlert(unit) {
+  focusWeakUnit(unit.id);
 }
 
 function switchElective(key) {
@@ -289,12 +378,16 @@ document.querySelectorAll('.el-tab').forEach(tab => {
 
 buildMapNodes();
 renderSidebar();
+setTimeout(() => renderWeaknessFeed(true), 800);
 
-/* first weak unit for default alert */
-const defaultWeak = getAllUnits('prob').find(u => u.state === 'r');
-if (defaultWeak) {
-  setTimeout(() => showUnitAlert({ ...defaultWeak, trackLabel: defaultWeak.track === 'math2' ? '수학Ⅱ' : '수학Ⅰ' }), 500);
-}
+/* cycle weakness highlights */
+let weakCycleIdx = 0;
+setInterval(() => {
+  const weak = getVisibleNodes().filter(n => n.state === 'r');
+  if (weak.length < 2) return;
+  weakCycleIdx = (weakCycleIdx + 1) % weak.length;
+  focusWeakUnit(weak[weakCycleIdx].id);
+}, 3500);
 
 /* ─── TUNNEL TEXT ─── */
 const tunnelWords = ['수학Ⅰ', '수학Ⅱ', '확통', '미적', '기하', '27단원', '1등급', '3문제', '매일', '분석', 'Pullit'];
@@ -378,10 +471,7 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       onUpdate: (self) => {
         const revealCount = Math.min(27, Math.floor(self.progress * 27) + 1);
         applyReveal(revealCount);
-        if (self.progress > 0.65) {
-          const weak = nodes.find(n => n.state === 'r' && !n.el.classList.contains('hidden'));
-          if (weak) showUnitAlert(weak);
-        }
+        renderWeaknessFeed(self.progress > 0.4 && self.progress < 0.95);
       },
     },
   })
@@ -450,6 +540,7 @@ const quizData = {
     ],
     explain: "f'(x) = 3x² − 3 = 0 → x = ±1, 극대는 x = 1",
     weak: '수학Ⅱ › 도함수 활용',
+    related: ['수학Ⅱ · 방정식·부등식', '수학Ⅱ · 미분계수', '수학Ⅰ · 삼각함수'],
   },
   eng: {
     meta: '영어 · 빈칸 추론',
@@ -462,6 +553,7 @@ const quizData = {
     ],
     explain: 'abundant = plentiful (풍부한)',
     weak: '영어 › 어휘',
+    related: ['영어 · 동의어', '영어 · 빈칸 추론', '영어 · 문맥 추론'],
   },
 };
 
@@ -471,8 +563,10 @@ function renderQuiz(subject) {
   document.getElementById('quizQ').textContent = data.q;
   const result = document.getElementById('quizResult');
   const burst = document.getElementById('weakBurst');
+  const tags = document.getElementById('quizWeakTags');
   result.textContent = '';
   result.style.color = '';
+  if (tags) tags.innerHTML = '';
   burst?.classList.remove('active');
 
   const opts = document.getElementById('quizOptions');
@@ -493,8 +587,17 @@ function renderQuiz(subject) {
       } else {
         btn.classList.add('wrong');
         [...opts.children].forEach((b, i) => { if (data.options[i].correct) b.classList.add('correct'); });
-        result.textContent = `약점 단원 기록 → ${data.weak}`;
+        result.textContent = `약점 ${data.related?.length || 1}개 감지됨`;
         result.style.color = '#FF6B7A';
+        if (tags && data.related) {
+          data.related.forEach((tag, i) => {
+            const el = document.createElement('span');
+            el.className = 'quiz-weak-tag';
+            el.style.animationDelay = `${i * 0.1}s`;
+            el.textContent = tag;
+            tags.appendChild(el);
+          });
+        }
         burst?.classList.add('active');
         if (typeof gsap !== 'undefined') {
           gsap.from('#pulseArena', { x: -8, duration: 0.05, repeat: 5, yoyo: true });

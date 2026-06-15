@@ -238,12 +238,22 @@
               </div>
             </div>
 
-            <div class="galaxy-alert" id="galaxyAlert">
-              <span class="alert-ping"></span>
-              <div>
-                <strong id="alertTitle">오늘의 약점 단원</strong>
-                <span id="alertConcept">수학Ⅱ › 도함수 활용</span>
-                <small id="alertHint">내일 3문제 중 1개로 추천</small>
+            <div class="weakness-panel" id="weaknessPanel">
+              <div class="weak-head">
+                <div>
+                  <strong>약점 감지</strong>
+                  <small>풀수록 실시간 업데이트</small>
+                </div>
+                <span class="weak-count" id="weakCount">0</span>
+              </div>
+              <div class="weak-list" id="weakList"></div>
+              <div class="weak-grow" id="weakGrow">
+                <span class="weak-grow-label">성장 필요</span>
+                <div class="weak-chips" id="growChips"></div>
+              </div>
+              <div class="weak-tomorrow">
+                <span class="weak-tomorrow-label">내일 AI 추천 3문제</span>
+                <div class="weak-chips tomorrow" id="tomorrowChips"></div>
               </div>
             </div>
           </aside>
@@ -316,6 +326,7 @@
         <div class="pulse-options" id="quizOptions"></div>
         <div class="pulse-result-wrap">
           <p class="pulse-result" id="quizResult"></p>
+          <div class="quiz-weak-tags" id="quizWeakTags"></div>
           <div class="weak-burst" id="weakBurst"></div>
         </div>
       </div>
