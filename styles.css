@@ -242,6 +242,18 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 }
 .impact-sub strong { color: #fff; }
 
+.impact-subjects {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.subject-pill {
+  padding: 8px 16px; border-radius: 999px; font-size: .78rem; font-weight: 800;
+  border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04);
+}
+.subject-pill.math { border-color: rgba(91,91,240,.4); color: #a5a5ff; }
+.subject-pill.eng { border-color: rgba(0,229,168,.4); color: var(--pull-mint); }
+.subject-pill.daily { border-color: rgba(255,255,255,.2); color: #fff; }
+
 .impact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
 .impact-live {
   display: inline-flex; align-items: center; gap: 10px;
@@ -494,6 +506,15 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 }
 .stat-block:hover { transform: rotateX(6deg) rotateY(-6deg) translateZ(16px); }
 .stat-block.accent { border-color: rgba(0,229,168,.3); box-shadow: 0 0 40px rgba(0,229,168,.08); }
+.stat-block.grade {
+  border-color: rgba(255,215,0,.35);
+  box-shadow: 0 0 40px rgba(255,215,0,.1);
+  background: rgba(255,215,0,.04);
+}
+.stat-block.grade .stat-num {
+  color: #ffd700;
+  text-shadow: 0 0 30px rgba(255,215,0,.4);
+}
 .stat-block.zero .stat-num { color: rgba(255,255,255,.2); text-decoration: line-through; }
 .stat-num {
   display: block; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900;
@@ -598,9 +619,9 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 }
 .vs-side.old {
   background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.06);
-  color: rgba(255,255,255,.3); transform: rotateY(8deg) translateZ(-30px);
+  color: rgba(255,255,255,.45); transform: rotateY(8deg) translateZ(-30px);
 }
-.vs-side.old li { text-decoration: line-through; }
+.vs-side.old li { text-decoration: none; opacity: .75; }
 .vs-side.new {
   background: rgba(0,229,168,.06); border: 2px solid rgba(0,229,168,.35);
   box-shadow: 0 0 80px rgba(0,229,168,.12), 0 40px 80px rgba(0,0,0,.4);
@@ -619,7 +640,7 @@ body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: #
 .vs-side.new strong { color: var(--pull-mint); }
 .vs-mid { text-align: center; position: relative; }
 .vs-boom {
-  font-size: 3rem; font-weight: 900; color: rgba(255,255,255,.15);
+  font-size: 2.5rem; font-weight: 900; color: var(--pull-mint);
   position: relative; z-index: 2;
 }
 .vs-lightning {

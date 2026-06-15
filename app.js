@@ -5,7 +5,7 @@
   const tag = document.getElementById('loaderTag');
   if (!loader) return;
 
-  const words = ['PULL YOUR WEAK SPOTS', '3 PROBLEMS A DAY', 'MAP YOUR MIND', 'PULLIT'];
+  const words = ['PULL FOR GRADE 1', '27 UNITS IN SPACE', 'MATH · ENG · 3 A DAY', 'PULLIT'];
   let w = 0;
   const wordInterval = setInterval(() => {
     w = (w + 1) % words.length;
@@ -164,7 +164,7 @@ function updateHud() {
 }
 
 /* ─── TUNNEL TEXT ─── */
-const tunnelWords = ['PULL', 'WEAK', 'SPOTS', '3', 'AI', 'MAP', '10MIN', '풀잇', '약점', '수능', '매일', '성장'];
+const tunnelWords = ['1등급', '27', '수학', '영어', '3', '우주', '단원', '매일', '별', 'Pullit', '성장', '10분'];
 ['tunnel1', 'tunnel2'].forEach((id) => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -355,7 +355,7 @@ function renderQuiz(subject) {
       opts.querySelectorAll('.pulse-opt').forEach((b) => { b.disabled = true; b.classList.remove('correct', 'wrong'); });
       if (opt.correct) {
         btn.classList.add('correct');
-        result.textContent = `✓ 정답! ${data.explain}`;
+        result.textContent = `✓ 정답! ${data.explain} — 1등급 궤도 +1`;
         result.style.color = '#00E5A8';
         if (typeof gsap !== 'undefined') {
           gsap.from(btn, { scale: 1.15, duration: 0.4, ease: 'back.out(3)' });
@@ -363,7 +363,7 @@ function renderQuiz(subject) {
       } else {
         btn.classList.add('wrong');
         [...opts.children].forEach((b, i) => { if (data.options[i].correct) b.classList.add('correct'); });
-        result.textContent = `약점 감지됨 → ${data.weak}`;
+        result.textContent = `약한 별 발견 → ${data.weak}`;
         result.style.color = '#FF6B7A';
         burst?.classList.add('active');
         if (typeof gsap !== 'undefined') {
