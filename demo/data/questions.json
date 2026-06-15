@@ -1,0 +1,102 @@
+[
+  {
+    "id": "q1",
+    "subject": "math",
+    "unitId": "m1-04",
+    "unitLabel": "수학Ⅰ · 삼각함수",
+    "q": "sin(π/6)의 값은?",
+    "options": ["1/2", "√2/2", "√3/2", "1"],
+    "answer": 0,
+    "explain": "sin(30°) = 1/2"
+  },
+  {
+    "id": "q2",
+    "subject": "math",
+    "unitId": "m2-04",
+    "unitLabel": "수학Ⅱ · 도함수 활용",
+    "q": "f(x) = x³ − 3x + 1의 극대점 x는?",
+    "options": ["−1", "0", "1", "2"],
+    "answer": 0,
+    "explain": "f'(x)=3x²−3=0 → x=±1, 극대 x=−1"
+  },
+  {
+    "id": "q3",
+    "subject": "math",
+    "unitId": "m2-03",
+    "unitLabel": "수학Ⅱ · 미분계수",
+    "q": "f(x) = x² 일 때 f'(2)는?",
+    "options": ["2", "4", "6", "8"],
+    "answer": 1,
+    "explain": "f'(x)=2x → f'(2)=4"
+  },
+  {
+    "id": "q4",
+    "subject": "math",
+    "unitId": "m1-03",
+    "unitLabel": "수학Ⅰ · 로그함수",
+    "q": "log₂8의 값은?",
+    "options": ["2", "3", "4", "8"],
+    "answer": 1,
+    "explain": "2³ = 8"
+  },
+  {
+    "id": "q5",
+    "subject": "math",
+    "unitId": "e-04",
+    "unitLabel": "확률과 통계 · 이항분포",
+    "q": "동전 3번 던질 때 앞면이 정확히 2번 나올 확률?",
+    "options": ["1/8", "3/8", "1/2", "3/4"],
+    "answer": 1,
+    "explain": "₃C₂ × (1/2)³ = 3/8"
+  },
+  {
+    "id": "q6",
+    "subject": "math",
+    "unitId": "m2-05",
+    "unitLabel": "수학Ⅱ · 방정식·부등식",
+    "q": "x² − 5x + 6 = 0의 두 근의 합은?",
+    "options": ["3", "5", "6", "−5"],
+    "answer": 1,
+    "explain": "근과 계수의 관계 → 합 = 5"
+  },
+  {
+    "id": "q7",
+    "subject": "eng",
+    "unitId": "eng-vocab",
+    "unitLabel": "영어 · 어휘",
+    "q": "\"abundant\"와 가장 가까운 뜻은?",
+    "options": ["scarce", "plentiful", "narrow", "silent"],
+    "answer": 1,
+    "explain": "abundant = plentiful"
+  },
+  {
+    "id": "q8",
+    "subject": "eng",
+    "unitId": "eng-blank",
+    "unitLabel": "영어 · 빈칸추론",
+    "q": "The research was ___ by lack of funding.",
+    "options": ["hindered", "praised", "ignored", "expanded"],
+    "answer": 0,
+    "explain": "자금 부족으로 방해받았다"
+  },
+  {
+    "id": "q9",
+    "subject": "math",
+    "unitId": "m1-06",
+    "unitLabel": "수학Ⅰ · 등비수열",
+    "q": "첫째항 2, 공비 3인 등비수열의 넷째항은?",
+    "options": ["18", "27", "54", "81"],
+    "answer": 2,
+    "explain": "2 × 3³ = 54"
+  },
+  {
+    "id": "q10",
+    "subject": "math",
+    "unitId": "m2-08",
+    "unitLabel": "수학Ⅱ · 정적분",
+    "q": "∫₀¹ 2x dx의 값은?",
+    "options": ["0", "1", "2", "4"],
+    "answer": 1,
+    "explain": "[x²]₀¹ = 1"
+  }
+]

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pullit 체험 — 오늘의 3문제</title>
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="icon" href="../brand/favicon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- HOME: 오늘의 3문제 (메인) -->
+    <section id="viewHome" class="view active">
+      <header class="top">
+        <a href="../" class="logo-sm">
+          <img src="../brand/logo-mark.svg" width="24" height="24" alt="">
+          Pull<span class="mint">it</span>
+        </a>
+        <span class="streak" id="streak">🔥 0일</span>
+      </header>
+
+      <div class="home-head">
+        <p class="eyebrow">AI가 약점만 골라줌</p>
+        <h1>오늘의 <span class="mint">3</span>문제</h1>
+        <p class="sub" id="homeSub">수학 2 · 영어 1 · 약 10분</p>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-bar"><span id="dayProgress"></span></div>
+        <span class="progress-label" id="progressLabel">0 / 3</span>
+      </div>
+
+      <div class="daily-list" id="dailyList"></div>
+
+      <div class="weak-summary" id="weakSummary">
+        <div class="weak-summary-head">
+          <strong>약점 단원</strong>
+          <button type="button" class="link-btn" data-go="map">전체 보기 →</button>
+        </div>
+        <div class="weak-chips" id="weakChips"></div>
+      </div>
+
+      <div class="tomorrow" id="tomorrowBox" hidden>
+        <p class="tomorrow-label">내일 AI 추천 미리보기</p>
+        <div class="tomorrow-chips" id="tomorrowChips"></div>
+        <button type="button" class="btn-ghost btn-sm" id="btnNextDay">다음 날 체험 →</button>
+      </div>
+    </section>
+
+    <!-- SOLVE: 심플 풀이만 -->
+    <section id="viewSolve" class="view">
+      <header class="solve-top">
+        <button type="button" class="back-btn" id="btnBack" aria-label="뒤로">←</button>
+        <span class="solve-meta" id="solveMeta"></span>
+        <span class="solve-count" id="solveCount"></span>
+      </header>
+      <div class="solve-body">
+        <p class="solve-q" id="solveQ"></p>
+        <div class="solve-opts" id="solveOpts"></div>
+      </div>
+      <p class="solve-feedback" id="solveFeedback" hidden></p>
+    </section>
+
+    <!-- MAP: 27단원 -->
+    <section id="viewMap" class="view">
+      <header class="top">
+        <button type="button" class="back-btn" data-go="home">←</button>
+        <h2 class="map-title">27단원 약점</h2>
+        <span></span>
+      </header>
+
+      <div class="map-stats" id="mapStats"></div>
+
+      <div class="map-tracks" id="mapTracks"></div>
+
+      <nav class="tab-bar">
+        <button type="button" class="tab active" data-go="home">
+          <span>오늘</span>
+        </button>
+        <button type="button" class="tab" data-go="map">
+          <span>지도</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- HOME tab bar -->
+    <nav class="tab-bar tab-home" id="tabHome">
+      <button type="button" class="tab active" data-go="home">
+        <span>오늘</span>
+      </button>
+      <button type="button" class="tab" data-go="map">
+        <span>지도</span>
+      </button>
+    </nav>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
