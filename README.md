@@ -1,65 +1,80 @@
-# Pullit 풀잇 — 사이트 & 브랜드 패키지
+# Pullit 풀잇 — 사이트 & 브랜드
+
+> **Pull your weak spots. Three a day.**
+
+## 🌐 배포 (GitHub + Vercel)
+
+### 한 번에 배포
+
+```bash
+cd pullit-site
+./deploy.sh
+```
+
+1. GitHub 브라우저 로그인 (device code)
+2. `pullit-site` public 저장소 생성 & push
+3. Vercel 로그인 & 프로덕션 배포
+
+### 수동 배포
+
+#### 1. GitHub
+
+```bash
+cd pullit-site
+gh auth login          # GitHub 로그인
+git branch -M main
+gh repo create pullit-site --public --source=. --remote=origin --push \
+  --description "Pullit 풀잇 랜딩 사이트"
+```
+
+#### 2. Vercel (CLI)
+
+```bash
+npm install -g vercel
+vercel login
+vercel --prod          # pullit-site 폴더에서 실행
+```
+
+#### 3. Vercel (대시보드 — 추천)
+
+1. [vercel.com/new](https://vercel.com/new) 접속
+2. GitHub `pullit-site` 저장소 Import
+3. Framework: **Other** (정적 HTML)
+4. Deploy 클릭
+
+→ 이후 `main` push마다 자동 배포
+
+#### 4. GitHub Actions (선택)
+
+Vercel 대시보드 → Settings → Tokens 에서 토큰 발급 후  
+GitHub 저장소 Secrets에 추가:
+
+| Secret | 값 |
+|--------|-----|
+| `VERCEL_TOKEN` | Vercel API 토큰 |
+| `VERCEL_ORG_ID` | `vercel project ls` 또는 대시보드 |
+| `VERCEL_PROJECT_ID` | 프로젝트 Settings |
+
+---
 
 ## 📁 구조
 
 ```
 pullit-site/
-├── index.html              ← 메인 랜딩 (학생 + B2G)
-├── brand.html              ← 브랜드 가이드 시각화 페이지
-├── styles.css              ← UI 스타일
-├── app.js                  ← 체험 퀴즈 · 모바일 메뉴
-├── export_assets.py        ← PNG보내기 (선택)
-└── brand/
-    ├── BRAND_GUIDE.md      ← 브랜드 가이드 문서
-    ├── tokens.css          ← 디자인 토큰
-    ├── logo-mark.svg       ← 앱 아이콘 · 파비콘
-    ├── logo-full.svg       ← Pullit (Pull+it)
-    ├── logo-full-ko.svg    ← Pullit 풀잇
-    ├── favicon.svg
-    └── og-image.svg        ← SNS 공유 1200×630
+├── index.html          ← 메인 랜딩
+├── brand.html          ← 브랜드 가이드
+├── brand/              ← 로고·에셋
+├── vercel.json         ← Vercel 설정
+├── deploy.sh           ← 배포 스크립트
+└── .github/workflows/  ← CI/CD (선택)
 ```
 
-## 🎨 브랜드 요약
-
-| 항목 | 내용 |
-|------|------|
-| **이름** | Pullit (풀잇) |
-| **슬로건** | Pull your weak spots. Three a day. |
-| **한 줄** | 매일 3문제, 약한 수학·영어만 |
-| **로고** | 3색 막대(🔴🟡🟢) + → 화살표 |
-| **메인 컬러** | Pull Indigo `#5B5BF0` · Mint `#00E5A8` |
-
-## 🖥 미리보기
+## 🖥 로컬 미리보기
 
 ```bash
-cd pullit-site
 python3 -m http.server 8080
-# http://localhost:8080          → 랜딩
-# http://localhost:8080/brand.html → 브랜드 가이드
+# http://localhost:8080
 ```
-
-또는 `index.html` 더블클릭
-
-## 📦 제출·배포 시
-
-1. **앱스토어** → `brand/logo-mark.svg` (512px PNG 변환)
-2. **웹 파비콘** → `brand/favicon.svg` (이미 연결됨)
-3. **SNS 공유** → `brand/og-image.svg`
-4. **B2G 제안서** → `brand/logo-full-ko.svg`
-5. **IR·투자** → `brand/BRAND_GUIDE.md`
-
-PNG 변환:
-```bash
-pip install cairosvg
-python3 export_assets.py
-```
-
-## 🔗 페이지
-
-| URL | 용도 |
-|-----|------|
-| `/` | 서비스 랜딩 |
-| `/brand.html` | 로고·컬러·톤 가이드 |
 
 ---
-© 2026 Neuronsoft · Pullit v1.0
+© 2026 Neuronsoft · Pullit
