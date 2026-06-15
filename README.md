@@ -23,8 +23,8 @@ cd pullit-site
 cd pullit-site
 gh auth login          # GitHub 로그인
 git branch -M main
-gh repo create pullit-site --public --source=. --remote=origin --push \
-  --description "Pullit 풀잇 랜딩 사이트"
+git remote add origin https://github.com/ApplePod/pullit.git
+git push -u origin main
 ```
 
 #### 2. Vercel (CLI)

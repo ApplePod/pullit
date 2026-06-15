@@ -15,14 +15,13 @@ if ! gh auth status &>/dev/null; then
 fi
 
 # 2. GitHub 저장소 생성 & 푸시
-REPO_NAME="${1:-pullit-site}"
+REPO_URL="${1:-https://github.com/ApplePod/pullit.git}"
 if ! git remote get-url origin &>/dev/null; then
-  echo "GitHub 저장소 생성: $REPO_NAME"
-  gh repo create "$REPO_NAME" --public --source=. --remote=origin --push --description "Pullit 풀잇 — 매일 3문제 학습 앱 랜딩"
-else
-  echo "기존 remote push"
-  git push -u origin HEAD
+  git remote add origin "$REPO_URL"
 fi
+git remote set-url origin "$REPO_URL"
+echo "GitHub push: $REPO_URL"
+git push -u origin main
 
 echo ""
 echo "GitHub: $(gh repo view --json url -q .url)"
