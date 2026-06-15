@@ -1,0 +1,11 @@
+{
+  "name": "pullit-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pullit 풀잇 — 매일 3문제, 약한 수학·영어만",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
+  }
+}
